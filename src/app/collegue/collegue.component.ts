@@ -26,8 +26,7 @@ export class CollegueComponent implements OnInit {
     console.log("Création d'un collègue");
   }
 
-  public valider(value:any) {
+  public valider() {
     this.modificationEnCours = false;
-    console.log(value);
   }
 }
