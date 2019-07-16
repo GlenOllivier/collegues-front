@@ -3,9 +3,7 @@ import {collegueMock} from 'src/app/mock/collegue.mock';
 
 @Component({
   selector: 'app-root',
-  template: `
-  <app-collegue [collegue]="collegue"></app-collegue>
-  `,
+  templateUrl:'app.component.html',
   styles: []
 })
 export class AppComponent {

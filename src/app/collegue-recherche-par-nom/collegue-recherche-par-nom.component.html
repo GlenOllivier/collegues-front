@@ -1,0 +1,14 @@
+<div class="form-group row">
+  <label class="col-md-4 col-form-label text-right" for="recherche">Recherche par nom :</label>
+  <input #saisie type="search" class="form-control col-md-5" name="recherche" placeholder="Recherche" />
+  <div class="col-md-3">
+    <button class="btn btn-dark" name="rechercher" (click)="recherche(saisie.value)">Rechercher</button>
+  </div>
+  <div *ngIf="matricules.length > 0" class="container-fluid text-center">
+    <ul class="list-group list-group-flush">
+      <div>
+        <li *ngFor="let matricule of matricules" class="list-group-item">{{matricule}}</li>
+      </div>
+    </ul>
+  </div>
+</div>

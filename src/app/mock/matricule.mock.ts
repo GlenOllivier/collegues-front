@@ -1,0 +1,7 @@
+export const matriculesMock = ["239424e4-c987-44e1-98df-349ef039298e",
+"228d627f-e0f6-47f5-ba72-09d80527697d",
+"66f2e2fb-fb22-40f8-bbb7-fe78ff8e354e",
+"a7f01011-66e5-4b58-adf6-25641e40dea8",
+"0bc47827-5dac-40e9-975e-862a31c7629b",
+"1fdebada-49e1-44ad-a29d-b9d959526401",
+"aac18067-30dd-416a-a1e1-86d533adb484"];
