@@ -3,7 +3,7 @@ export class Collegue{
         public lastName:string,
         public firstName:string,
         public email:string,
-        public birthDate:string,
+        public birthDate:Date,
         public pictureUrl?:string,
         public matricule?:string
     ) {
