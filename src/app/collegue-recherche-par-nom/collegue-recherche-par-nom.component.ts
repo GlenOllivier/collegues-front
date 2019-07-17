@@ -22,7 +22,8 @@ export class CollegueRechercheParNomComponent implements OnInit {
   recherche(name:string) {
     this.dataService.rechercheParNom(name)
     .subscribe(matriculesRecherches => this.matricules = matriculesRecherches);
-    return null;
+    this.dataService.postCollegue(undefined);
+    this.matriculeSelectionne = "";
   }
 
   selectionner(matricule:string) {
