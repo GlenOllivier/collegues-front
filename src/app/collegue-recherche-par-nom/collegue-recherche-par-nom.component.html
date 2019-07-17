@@ -7,7 +7,9 @@
   <div *ngIf="matricules.length > 0" class="container-fluid text-center mt-2">
     <ul class="list-group list-group-flush">
       <div>
-        <li *ngFor="let matricule of matricules" class="list-group-item">{{matricule}}</li>
+        <li *ngFor="let matricule of matricules" class="list-group-item">
+          <button class="btn btn-outline-dark btn-sm" (click)="selectionner(matricule)">{{matricule}}</button>
+        </li>
       </div>
     </ul>
   </div>
