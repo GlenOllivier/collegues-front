@@ -16,7 +16,6 @@ export class CollegueComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.collegue = this.dataService.recupererCollegueCourant();
     this.dataService.subCollegue()
     .subscribe(collegue => this.collegue = collegue);
   }

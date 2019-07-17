@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { matriculesMock } from '../mock/matricule.mock';
 import { DataService } from '../data.service';
+
 
 @Component({
   selector: 'app-collegue-recherche-par-nom',
@@ -9,7 +9,9 @@ import { DataService } from '../data.service';
 })
 export class CollegueRechercheParNomComponent implements OnInit {
 
-  matricules:string[] = [];
+  matricules:string[];
+
+  matriculeSelectionne:string = "";
   
 
   constructor(private dataService: DataService ) { }
@@ -20,11 +22,13 @@ export class CollegueRechercheParNomComponent implements OnInit {
   recherche(name:string) {
     this.dataService.rechercheParNom(name)
     .subscribe(matriculesRecherches => this.matricules = matriculesRecherches);
+    return null;
   }
 
   selectionner(matricule:string) {
-    this.dataService.rechercheParMatricule(matricule).subscribe(collegue =>
-      this.dataService.postCollegue(collegue)
-    );
+    this.dataService.rechercheParMatricule(matricule).subscribe(collegue => {
+      this.dataService.postCollegue(collegue);
+      this.matriculeSelectionne = collegue.matricule;
+    });
   }
 }

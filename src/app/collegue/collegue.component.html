@@ -1,46 +1,48 @@
-<div class="card mb-4 shadow-sm">
-  <div class="card-header">{{collegue.firstName}} {{collegue.lastName | uppercase}}</div>
-  <div class="card-body text-dark">
-    <div class="row">
-      <div class="col-sm-4 mb-2">
-        <img src="{{collegue.pictureUrl}}" alt="image de {{collegue.lastName}} {{collegue.firstName}}"
-          class="img-fluid shadow-sm">
-      </div>
-      <div class="col-sm-8">
-
-        <div *ngIf="!modificationEnCours">
-          <dl class="row">
-            <dt class="col-md-5">Matricule</dt>
-            <dd class="col-md-7">{{collegue.matricule}}</dd>
-            <dt class="col-md-5">Date de naissance</dt>
-            <dd class="col-md-7">{{collegue.birthDate | date:'dd/MM/yyyy'}}</dd>
-            <dt class="col-md-5">Email</dt>
-            <dd class="col-md-7">{{collegue.email}}</dd>
-          </dl>
+<div *ngIf="collegue !== undefined">
+  <div class="card mb-4 shadow-sm">
+    <div class="card-header">{{collegue.firstName}} {{collegue.lastName | uppercase}}</div>
+    <div class="card-body text-dark">
+      <div class="row">
+        <div class="col-sm-4 mb-2">
+          <img src="{{collegue.pictureUrl}}" alt="image de {{collegue.lastName}} {{collegue.firstName}}"
+            class="img-fluid shadow-sm">
         </div>
+        <div class="col-sm-8">
 
-        <div *ngIf="modificationEnCours">
-          <dl class="row">
-            <dt class="col-md-5">Matricule</dt>
-            <dd class="col-md-7">{{collegue.matricule}}</dd>
-            <dt class="col-md-5">Date de naissance</dt>
-            <dd class="col-md-7">{{collegue.birthDate | date:'dd/MM/yyyy'}}</dd>
-            <dt class="col-md-5">Email</dt>
-            <dd class="col-md-7"><input type="text" class="form-control" value="{{collegue.email}}" /></dd>
-            <dt class="col-md-5">URL de la photo</dt>
-            <dd class="col-md-7"><input type="text" class="form-control" value="{{collegue.pictureUrl}}" /></dd>
-          </dl>
-        </div>
-        <div class="row">
-          <div class="col-md-7 mb-4">
-            <div *ngIf="!modificationEnCours"><a class="btn btn-outline-dark" href="#" (click)="creer()"> Créer un
-                nouveau collegue </a></div>
+          <div *ngIf="!modificationEnCours">
+            <dl class="row">
+              <dt class="col-md-5">Matricule</dt>
+              <dd class="col-md-7">{{collegue.matricule}}</dd>
+              <dt class="col-md-5">Date de naissance</dt>
+              <dd class="col-md-7">{{collegue.birthDate | date:'dd/MM/yyyy'}}</dd>
+              <dt class="col-md-5">Email</dt>
+              <dd class="col-md-7">{{collegue.email}}</dd>
+            </dl>
           </div>
-          <div class="col-md-5 mb-4">
-            <div *ngIf="modificationEnCours"><button class="btn btn-success text-right" (click)="valider()"> Valider
-              </button></div>
-            <div *ngIf="!modificationEnCours"><button class="btn btn-dark text-right" (click)="modifier()"> Modifier
-              </button></div>
+
+          <div *ngIf="modificationEnCours">
+            <dl class="row">
+              <dt class="col-md-5">Matricule</dt>
+              <dd class="col-md-7">{{collegue.matricule}}</dd>
+              <dt class="col-md-5">Date de naissance</dt>
+              <dd class="col-md-7">{{collegue.birthDate | date:'dd/MM/yyyy'}}</dd>
+              <dt class="col-md-5">Email</dt>
+              <dd class="col-md-7"><input type="text" class="form-control" value="{{collegue.email}}" /></dd>
+              <dt class="col-md-5">URL de la photo</dt>
+              <dd class="col-md-7"><input type="text" class="form-control" value="{{collegue.pictureUrl}}" /></dd>
+            </dl>
+          </div>
+          <div class="row">
+            <div class="col-md-7 mb-4">
+              <div *ngIf="!modificationEnCours"><a class="btn btn-outline-dark" href="#" (click)="creer()"> Créer un
+                  nouveau collegue </a></div>
+            </div>
+            <div class="col-md-5 mb-4">
+              <div *ngIf="modificationEnCours"><button class="btn btn-success text-right" (click)="valider()"> Valider
+                </button></div>
+              <div *ngIf="!modificationEnCours"><button class="btn btn-dark text-right" (click)="modifier()"> Modifier
+                </button></div>
+            </div>
           </div>
         </div>
       </div>
