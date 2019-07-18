@@ -23,8 +23,11 @@ export class CollegueComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.abonnementCollegue = this.dataService.subCollegue()
-    .subscribe(collegue => {this.collegue = collegue;
-      this.formData = {...collegue};});
+    .subscribe(collegue => {
+      this.collegue = collegue;
+      this.formData = {...collegue};
+      this.modificationEnCours = false;
+    });
   }
 
   ngOnDestroy(): void {
@@ -36,7 +39,7 @@ export class CollegueComponent implements OnInit, OnDestroy {
   }
 
   public creer() {
-    console.log("Création d'un collègue");
+    this.dataService.postEtat(1);
   }
 
   public valider() {
@@ -44,8 +47,9 @@ export class CollegueComponent implements OnInit, OnDestroy {
     .subscribe(collegue => {
       this.collegue = collegue;
       this.formData = {...collegue};
-    });
-    this.modificationEnCours = false;
+      this.modificationEnCours = false;
+    },
+    error => { });
   }
 
   public annuler() {

@@ -1,0 +1,57 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-header">Création de collegue</div>
+  <div class="card-body text-dark">
+    <div class="row">
+      <div class="col-sm-4 mb-2">
+        <img src="assets/images/keanu.png" alt="avatar generique" class="img-fluid shadow-sm">
+      </div>
+      <div class="col-sm-8">
+        <form (ngSubmit)="valider()" #form="ngForm">
+
+          <dl class="row">
+            <dt class="col-md-5">Nom</dt>
+            <dd class="col-md-7">
+              <input [(ngModel)]="formData.lastName" name="lastName" #lastName="ngModel" type="text" class="form-control w-100"
+                required [class.is-invalid]="lastName.dirty && lastName.invalid" minlength="2"/>
+              <div *ngIf="email.dirty && email.invalid" class="text-sm text-danger">Veuillez entrer un nom d'au moins 2 caractères.</div>
+            </dd>
+            <dt class="col-md-5">Prénom</dt>
+            <dd class="col-md-7">
+              <input [(ngModel)]="formData.firstName" name="firstName" #firstName="ngModel" type="text" class="form-control w-100"
+                required [class.is-invalid]="firstName.dirty && firstName.invalid" minlength="2"/>
+              <div *ngIf="email.dirty && email.invalid" class="text-sm text-danger">Veuillez entrer un prénom d'au moins 2 caractères.</div>
+            </dd>
+            <dt class="col-md-5">Date de naissance</dt>
+            <dd class="col-md-7">
+              <input [(ngModel)]="formData.birthDate" name="birthDate" #birthDate="ngModel" type="date" class="form-control w-100"
+                required [class.is-invalid]="birthDate.dirty && birthDate.invalid" />
+              <div *ngIf="email.dirty && email.invalid" class="text-sm text-danger">Veuillez entrer une date de naissance.</div>
+            </dd>
+            <dt class="col-md-5">Email</dt>
+            <dd class="col-md-7">
+              <input [(ngModel)]="formData.email" name="email" #email="ngModel" type="text" class="form-control w-100"
+                required [class.is-invalid]="email.dirty && email.invalid" />
+              <div *ngIf="email.dirty && email.invalid" class="text-sm text-danger">Veuillez entrer un email.</div>
+            </dd>
+            <dt class="col-md-5">URL de la photo</dt>
+            <dd class="col-md-7 input-group">
+              <input [(ngModel)]="formData.pictureUrl" name="pictureUrl" #pictureUrl="ngModel" type="text"
+                class="form-control w-100" minlength="7" required
+                [class.is-invalid]="pictureUrl.dirty && pictureUrl.invalid" />
+              <div *ngIf="pictureUrl.dirty && pictureUrl.invalid" class="text-sm text-danger">Veuillez entrer une url
+                d'image de plus de 7 caractères.</div>
+            </dd>
+          </dl>
+          <div class="row">
+            <div class="col-md-7 mb-4">
+              <button class="btn btn-secondary" (click)="annuler()"> Annuler </button>
+            </div>
+            <div class="col-md-5 mb-4">
+              <button type="submit" class="btn btn-success text-right" [disabled]="form.invalid"> Ajouter</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

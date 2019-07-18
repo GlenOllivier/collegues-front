@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Collegue } from './models/Collegue';
 import {environment} from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, Subject, of, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
@@ -14,7 +14,9 @@ export class DataService {
   COLLEGUE = new Collegue("-----","-----", "-----", new Date("0001-01-01"), "assets/images/keanu.png", "-----");
   collegues = new Map<string, Collegue>();
 
-  private subCollegueSelectionne = new Subject<Collegue>();
+  private subCollegueSelectionne = new BehaviorSubject<Collegue>(undefined);
+
+  private subMode = new Subject<number>();
 
   constructor(private _http:HttpClient) { }
 
@@ -54,5 +56,17 @@ export class DataService {
     }
     this.collegues.clear();
     return this._http.patch<Collegue>(`${this.BACKEND_URL}/collegues/${collegue.matricule}`, collegueDto);
+  }
+  
+  postEtat(etat:number) {
+    this.subMode.next(etat);
+  }
+
+  subEtat(): Observable<number> {
+    return this.subMode.asObservable();
+  }
+
+  ajouterCollegue(collegue:Collegue): Observable<Collegue> {
+    return this._http.post<Collegue>(`${this.BACKEND_URL}/collegues`, collegue);
   }
 }
