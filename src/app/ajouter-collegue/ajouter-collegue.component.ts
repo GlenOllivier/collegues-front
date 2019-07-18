@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Collegue } from '../models/Collegue';
 import { DataService } from '../data.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-ajouter-collegue',
@@ -9,6 +10,7 @@ import { DataService } from '../data.service';
 })
 export class AjouterCollegueComponent implements OnInit {
   formData:Collegue = new Collegue();
+  codeErreur:number = 200;
 
   constructor(private dataService: DataService) { }
 
@@ -20,6 +22,9 @@ export class AjouterCollegueComponent implements OnInit {
     .subscribe(collegue => {
       this.dataService.postEtat(0);
       this.dataService.postCollegue(collegue);
+    },
+    (error:HttpErrorResponse) => {
+      this.codeErreur = error.status;
     });
   }
 

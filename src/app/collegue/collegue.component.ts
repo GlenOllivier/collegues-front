@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Collegue } from '../models/Collegue';
 import { DataService } from '../data.service';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-collegue',
@@ -12,6 +13,7 @@ import { Subscription } from 'rxjs';
 export class CollegueComponent implements OnInit, OnDestroy {
   public collegue;
   public modificationEnCours:boolean;
+  public codeErreur:number = 200;
 
   public formData:Collegue = new Collegue();
 
@@ -48,12 +50,16 @@ export class CollegueComponent implements OnInit, OnDestroy {
       this.collegue = collegue;
       this.formData = {...collegue};
       this.modificationEnCours = false;
+      this.codeErreur = 200;
     },
-    error => { });
+    (error:HttpErrorResponse) => {
+      this.codeErreur = error.status;
+    });
   }
 
   public annuler() {
     this.formData = this.collegue;
     this.modificationEnCours = false;
+    this.codeErreur = 200;
   }
 }

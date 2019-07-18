@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -9,27 +10,38 @@ import { DataService } from '../data.service';
 })
 export class CollegueRechercheParNomComponent implements OnInit {
 
-  matricules:string[];
+  matricules: string[];
+  codeErreur:number = 200;
+  matriculeSelectionne: string = "";
 
-  matriculeSelectionne:string = "";
-  
 
-  constructor(private dataService: DataService ) { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
   }
 
-  recherche(name:string) {
+  recherche(name: string) {
     this.dataService.rechercheParNom(name)
-    .subscribe(matriculesRecherches => this.matricules = matriculesRecherches);
-    this.dataService.postCollegue(undefined);
-    this.matriculeSelectionne = "";
+      .subscribe(matriculesRecherches => {
+        this.matricules = matriculesRecherches;
+        this.dataService.postCollegue(undefined);
+        this.matriculeSelectionne = "";
+        this.codeErreur = 200;
+      },
+      (error:HttpErrorResponse) => {
+        this.codeErreur = error.status;
+      });
   }
 
-  selectionner(matricule:string) {
+  selectionner(matricule: string) {
     this.dataService.rechercheParMatricule(matricule).subscribe(collegue => {
       this.dataService.postCollegue(collegue);
       this.matriculeSelectionne = collegue.matricule;
+      this.codeErreur = 200;
+      this.dataService.postEtat(0);
+    },
+    (error:HttpErrorResponse) => {
+      this.codeErreur = error.status;
     });
   }
 }

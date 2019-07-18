@@ -29,33 +29,46 @@
                 <dd class="col-md-7">{{collegue.birthDate | date:'dd/MM/yyyy'}}</dd>
                 <dt class="col-md-5">Email</dt>
                 <dd class="col-md-7 input-group">
-                  <input [(ngModel)]="formData.email" name="email" #email="ngModel" type="text" class="form-control w-100" required [class.is-invalid]="email.dirty && email.invalid"/>
-                  <div *ngIf="email.dirty && email.invalid" class="text-sm text-danger" >Veuillez entrer un email.</div>
+                  <input [(ngModel)]="formData.email" name="email" #email="ngModel" type="text"
+                    class="form-control w-100" required [class.is-invalid]="email.dirty && email.invalid" />
+                  <div class="invalid-feedback">Veuillez entrer un email.</div>
                 </dd>
                 <dt class="col-md-5">URL de la photo</dt>
                 <dd class="col-md-7 input-group">
                   <input [(ngModel)]="formData.pictureUrl" name="pictureUrl" #pictureUrl="ngModel" type="text"
-                    class="form-control w-100" minlength="7" required [class.is-invalid]="pictureUrl.dirty && pictureUrl.invalid"/>
-                    <div *ngIf="pictureUrl.dirty && pictureUrl.invalid" class="text-sm text-danger">Veuillez entrer une url d'image de plus de 7 caractères.</div>
-                  </dd>
+                    class="form-control w-100" minlength="7" required
+                    [class.is-invalid]="pictureUrl.dirty && pictureUrl.invalid" />
+                  <div class="invalid-feedback">Veuillez entrer une url d'image de plus de 7 caractères.</div>
+                </dd>
               </dl>
             </div>
             <div class="row">
               <div class="col-md-7 mb-4">
-                <div *ngIf="!modificationEnCours"><a class="btn btn-outline-dark" href="#" (click)="creer()"> Créer un
-                    nouveau collegue </a></div>
-                    <div *ngIf="modificationEnCours"><a class="btn btn-secondary" href="#" (click)="annuler()"> Annuler </a></div>
+                <div *ngIf="!modificationEnCours"><button class="btn btn-outline-dark" (click)="creer()"> Créer un
+                    nouveau collegue </button></div>
+                <div *ngIf="modificationEnCours"><button class="btn btn-secondary" (click)="annuler()"> Annuler
+                  </button></div>
               </div>
               <div class="col-md-5 mb-4">
-                <div *ngIf="modificationEnCours"><button type="submit" class="btn btn-success text-right" [disabled]="form.invalid"> Valider
+                <div *ngIf="modificationEnCours"><button type="submit" class="btn btn-success text-right"
+                    [disabled]="form.invalid"> Valider
                   </button></div>
                 <div *ngIf="!modificationEnCours"><button class="btn btn-dark text-right" (click)="modifier()"> Modifier
                   </button></div>
               </div>
+            </div>
+            <div [ngSwitch]="codeErreur">
+              <div *ngSwitchCase="0" class="alert alert-warning w-100">Serveur injoignable</div>
+              <div *ngSwitchCase="400" class="alert alert-danger w-100">Parametre(s) incorrect(s)</div>
+              <div *ngSwitchCase="404" class="alert alert-danger w-100">Collegue introuvable</div>
+              <div *ngSwitchCase="500" class="alert alert-warning w-100">Erreur interne au serveur</div>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
+</div>
+<div *ngIf="collegue === undefined" class="text-center">
+  <button class="btn btn-outline-dark" href="#" (click)="creer()"> Créer un nouveau collegue </button>
 </div>

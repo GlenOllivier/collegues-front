@@ -8,7 +8,12 @@
       </div>
     </div>
   </form>
-  <div *ngIf="matricules !== undefined" class="container-fluid text-center mt-2">
+  <div [ngSwitch]="codeErreur" class="text-center w-100 mt-3" >
+    <div *ngSwitchCase="0" class="alert alert-warning w-100">Server injoignable</div>
+    <div *ngSwitchCase="404" class="alert alert-danger w-100">Collegue sélectionné introuvable</div>
+    <div *ngSwitchCase="500" class="alert alert-warning w-100">Erreur interne au serveur</div>
+  </div>
+  <div *ngIf="matricules !== undefined" class="w-100 text-center mt-2">
     <ul class="list-group">
       <div *ngIf="matricules.length === 0">
         <li class="list-group-item w-100">Aucun résultat</li>
