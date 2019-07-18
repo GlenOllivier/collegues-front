@@ -52,7 +52,7 @@
           </div>
         </form>
       </div>
-      <div [ngSwitch]="codeErreur" >
+      <div [ngSwitch]="codeErreur" class="w-100 m-2">
         <div *ngSwitchCase="0" class="alert alert-warning w-100">Serveur injoignable</div>
         <div *ngSwitchCase="400" class="alert alert-danger w-100">Parametre(s) incorrect(s)</div>
         <div *ngSwitchCase="404" class="alert alert-danger w-100">Collegue introuvable</div>
