@@ -8,9 +8,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './collegue.component.html',
   styleUrls: ['./collegue.component.css']
 })
+
 export class CollegueComponent implements OnInit, OnDestroy {
   public collegue;
   public modificationEnCours:boolean;
+
+  public formData:Collegue = new Collegue();
 
   private abonnementCollegue:Subscription;
 
@@ -20,7 +23,8 @@ export class CollegueComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.abonnementCollegue = this.dataService.subCollegue()
-    .subscribe(collegue => this.collegue = collegue);
+    .subscribe(collegue => {this.collegue = collegue;
+      this.formData = {...collegue};});
   }
 
   ngOnDestroy(): void {
@@ -36,6 +40,16 @@ export class CollegueComponent implements OnInit, OnDestroy {
   }
 
   public valider() {
+    this.dataService.modifierCollegue(this.formData)
+    .subscribe(collegue => {
+      this.collegue = collegue;
+      this.formData = {...collegue};
+    });
+    this.modificationEnCours = false;
+  }
+
+  public annuler() {
+    this.formData = this.collegue;
     this.modificationEnCours = false;
   }
 }

@@ -13,6 +13,7 @@ export class DataService {
   BACKEND_URL = environment.backendUrl;
   COLLEGUE = new Collegue("-----","-----", "-----", new Date("0001-01-01"), "assets/images/keanu.png", "-----");
   collegues = new Map<string, Collegue>();
+
   private subCollegueSelectionne = new Subject<Collegue>();
 
   constructor(private _http:HttpClient) { }
@@ -40,5 +41,18 @@ export class DataService {
 
   subCollegue(): Observable<Collegue> {
     return this.subCollegueSelectionne.asObservable();
+  }
+
+  modifierCollegue(collegue:Collegue): Observable<Collegue> {
+    let collegueDto:any = {};
+
+    if (collegue.pictureUrl !== "" && collegue.pictureUrl !== undefined) {
+      collegueDto.pictureUrl = collegue.pictureUrl;
+    }
+    if (collegue.email !== "" && collegue.email !== undefined) {
+      collegueDto.email = collegue.email;
+    }
+    this.collegues.clear();
+    return this._http.patch<Collegue>(`${this.BACKEND_URL}/collegues/${collegue.matricule}`, collegueDto);
   }
 }
