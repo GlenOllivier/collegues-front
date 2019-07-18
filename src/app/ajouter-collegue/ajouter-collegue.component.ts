@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AjouterCollegueComponent implements OnInit {
   formData:Collegue = new Collegue();
   codeErreur:number = 200;
+  causesErreur:any = {};
 
   constructor(private dataService: DataService) { }
 
@@ -22,9 +23,13 @@ export class AjouterCollegueComponent implements OnInit {
     .subscribe(collegue => {
       this.dataService.postEtat(0);
       this.dataService.postCollegue(collegue);
+      this.causesErreur = {};
     },
     (error:HttpErrorResponse) => {
       this.codeErreur = error.status;
+      if(this.codeErreur === 400) {
+        this.causesErreur = error.error;
+      }
     });
   }
 

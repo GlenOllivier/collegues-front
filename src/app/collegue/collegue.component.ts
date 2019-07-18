@@ -14,6 +14,7 @@ export class CollegueComponent implements OnInit, OnDestroy {
   public collegue;
   public modificationEnCours:boolean;
   public codeErreur:number = 200;
+  public causesErreur:any = {};
 
   public formData:Collegue = new Collegue();
 
@@ -51,9 +52,13 @@ export class CollegueComponent implements OnInit, OnDestroy {
       this.formData = {...collegue};
       this.modificationEnCours = false;
       this.codeErreur = 200;
+      this.causesErreur = {};
     },
     (error:HttpErrorResponse) => {
       this.codeErreur = error.status;
+      if (this.codeErreur === 400) {
+        this.causesErreur = error.error;
+      }
     });
   }
 
@@ -61,5 +66,6 @@ export class CollegueComponent implements OnInit, OnDestroy {
     this.formData = this.collegue;
     this.modificationEnCours = false;
     this.codeErreur = 200;
+    this.causesErreur = {};
   }
 }

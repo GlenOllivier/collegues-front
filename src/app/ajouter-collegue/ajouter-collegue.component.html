@@ -12,34 +12,38 @@
             <dt class="col-md-5">Nom</dt>
             <dd class="col-md-7">
               <input [(ngModel)]="formData.lastName" name="lastName" #lastName="ngModel" type="text" class="form-control w-100"
-                required [class.is-invalid]="lastName.dirty && lastName.invalid" minlength="2"/>
-              <div class="invalid-feedback">Veuillez entrer un nom d'au moins 2 caractères.</div>
+                required minlength="2"[class.is-invalid]="(lastName.dirty && lastName.invalid)||causesErreur.lastName !== undefined" />
+                <div *ngIf="causesErreur.lastName !== undefined" class="invalid-feedback">{{causesErreur.lastName}}</div>
+                <div *ngIf="causesErreur.lastName === undefined" class="invalid-feedback">Veuillez entrer un nom d'au moins 2 caractères.</div>
             </dd>
             <dt class="col-md-5">Prénom</dt>
             <dd class="col-md-7">
               <input [(ngModel)]="formData.firstName" name="firstName" #firstName="ngModel" type="text" class="form-control w-100"
-                required [class.is-invalid]="firstName.dirty && firstName.invalid" minlength="2"/>
-              <div class="invalid-feedback">Veuillez entrer un prénom d'au moins 2 caractères.</div>
+                required minlength="2" [class.is-invalid]="(firstName.dirty && firstName.invalid)||causesErreur.firstName !== undefined" />
+              <div *ngIf="causesErreur.firstName !== undefined" class="invalid-feedback">{{causesErreur.firstName}}</div>
+              <div *ngIf="causesErreur.firstName === undefined" class="invalid-feedback">Veuillez entrer un prénom d'au moins 2 caractères.</div>
             </dd>
             <dt class="col-md-5">Date de naissance</dt>
             <dd class="col-md-7">
               <input [(ngModel)]="formData.birthDate" name="birthDate" #birthDate="ngModel" type="date" class="form-control w-100"
-                required [class.is-invalid]="birthDate.dirty && birthDate.invalid" />
-              <div class="invalid-feedback">Veuillez entrer une date de naissance.</div>
+              [class.is-invalid]="(birthDate.dirty && birthDate.invalid)||causesErreur.birthDate !== undefined" />
+            <div *ngIf="causesErreur.birthDate !== undefined" class="invalid-feedback">{{causesErreur.birthDate}}</div>
+            <div *ngIf="causesErreur.birthDate === undefined" class="invalid-feedback">Veuillez entrer une date de naissance.</div>
             </dd>
             <dt class="col-md-5">Email</dt>
             <dd class="col-md-7">
               <input [(ngModel)]="formData.email" name="email" #email="ngModel" type="text" class="form-control w-100"
-                required [class.is-invalid]="email.dirty && email.invalid" />
-              <div class="invalid-feedback">Veuillez entrer un email.</div>
+                required [class.is-invalid]="(email.dirty && email.invalid) || causesErreur.email !== undefined" />
+                <div *ngIf="causesErreur.email !== undefined" class="invalid-feedback">{{causesErreur.email}}</div>
+                <div *ngIf="causesErreur.email === undefined" class="invalid-feedback">Veuillez entrer une url d'image de plus de 7 caractères.</div>
             </dd>
             <dt class="col-md-5">URL de la photo</dt>
             <dd class="col-md-7 input-group">
               <input [(ngModel)]="formData.pictureUrl" name="pictureUrl" #pictureUrl="ngModel" type="text"
                 class="form-control w-100" minlength="7" required
-                [class.is-invalid]="pictureUrl.dirty && pictureUrl.invalid" />
-              <div class="invalid-feedback">Veuillez entrer une url
-                d'image de plus de 7 caractères.</div>
+                [class.is-invalid]="(pictureUrl.dirty && pictureUrl.invalid)||causesErreur.pictureUrl !== undefined" />
+              <div *ngIf="causesErreur.pictureUrl !== undefined" class="invalid-feedback">{{causesErreur.pictureUrl}}</div>
+              <div *ngIf="causesErreur.pictureUrl === undefined" class="invalid-feedback">Veuillez entrer une url d'image de plus de 7 caractères.</div>
             </dd>
           </dl>
           <div class="row">
@@ -54,7 +58,6 @@
       </div>
       <div [ngSwitch]="codeErreur" class="w-100 m-2">
         <div *ngSwitchCase="0" class="alert alert-warning w-100">Serveur injoignable</div>
-        <div *ngSwitchCase="400" class="alert alert-danger w-100">Parametre(s) incorrect(s)</div>
         <div *ngSwitchCase="404" class="alert alert-danger w-100">Collegue introuvable</div>
         <div *ngSwitchCase="500" class="alert alert-warning w-100">Erreur interne au serveur</div>
       </div>
