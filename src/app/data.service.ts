@@ -69,4 +69,8 @@ export class DataService {
   ajouterCollegue(collegue:Collegue): Observable<Collegue> {
     return this._http.post<Collegue>(`${this.BACKEND_URL}/collegues`, collegue);
   }
+
+  recupererPhotos():Observable<any[]> {
+    return this._http.get<any[]>(`${this.BACKEND_URL}/collegues/photos`);
+  }
 }

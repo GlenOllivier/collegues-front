@@ -1,0 +1,11 @@
+<div class="container-fluid">
+  <div class="row p-3">
+    <div class="col-12 text-center mb-5">
+      <h1 class="display-4">Administration des Collègues</h1>
+    </div>
+    <app-collegue-recherche-par-nom class="col-lg-6"></app-collegue-recherche-par-nom>
+    <div *ngIf="etat === 0" class="col-lg-6"><app-collegue></app-collegue></div>
+    <div *ngIf="etat === 1" class="col-lg-6"><app-ajouter-collegue></app-ajouter-collegue></div>
+    
+  </div>
+</div>

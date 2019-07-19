@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataService } from './data.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit} from '@angular/core';
+import { Routes } from '@angular/router';
+
 
 
 @Component({
@@ -8,20 +8,13 @@ import { Subscription } from 'rxjs';
   templateUrl:'app.component.html',
   styles: []
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'collegues-front';
-  etat:number;
-  subscription:Subscription;
 
-  constructor(private dataService: DataService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.etat = 0;
-    this.subscription = this.dataService.subEtat().subscribe(etat => this.etat = etat);
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 }
