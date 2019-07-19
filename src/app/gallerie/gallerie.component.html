@@ -3,10 +3,17 @@
     <div class="col-12 text-center mb-5">
       <h1 class="display-4">Gallerie</h1>
     </div>
-    <div *ngFor="let picture of pictures" class="col-xl-3 col-lg-4 col-sm-6">
-      <a routerLink="{{picture.matricule}}">
-        <img src="{{picture.pictureUrl}}" class="m-2 img-fluid shadow rounded" />
-      </a>
+    <div *ngIf="pictures?.length === 0" class="col-12">
+        <div class="list-group-item w-100 text-center">Aucun collègue à afficher</div>
     </div>
+    <div [ngSwitch]="codeErreur" class="w-100 m-3 text-center">
+      <div *ngSwitchCase="0" class="alert alert-warning w-100">Serveur injoignable</div>
+      <div *ngSwitchCase="500" class="alert alert-warning w-100">Erreur interne au serveur</div>
+    </div>
+      <div *ngFor="let picture of pictures" class="col-xl-3 col-lg-4 col-sm-6 text-center">
+        <a routerLink="{{picture.matricule}}">
+          <img src="{{picture.pictureUrl}}" class="m-2 img-fluid shadow rounded" />
+        </a>
+      </div>
   </div>
 </div>
