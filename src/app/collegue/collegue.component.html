@@ -30,17 +30,17 @@
                 <dt class="col-md-5">Email</dt>
                 <dd class="col-md-7 input-group">
                   <input [(ngModel)]="formData.email" name="email" #email="ngModel" type="text"
-                    class="form-control w-100" required [class.is-invalid]="(email.dirty && email.invalid) || causesErreur.email !== undefined" />
+                    class="form-control w-100" appEmailValidator [class.is-invalid]="(email.dirty && email.invalid) || causesErreur.email !== undefined" />
                     <div *ngIf="causesErreur.email !== undefined" class="invalid-feedback">{{causesErreur.email}}</div>
                     <div *ngIf="causesErreur.email === undefined" class="invalid-feedback">Veuillez entrer une url d'image de plus de 7 caractères.</div>
                 </dd>
                 <dt class="col-md-5">URL de la photo</dt>
                 <dd class="col-md-7 input-group">
                   <input [(ngModel)]="formData.pictureUrl" name="pictureUrl" #pictureUrl="ngModel" type="text"
-                    class="form-control w-100" minlength="7" required
+                    class="form-control w-100" appUrlValidator
                     [class.is-invalid]="(pictureUrl.dirty && pictureUrl.invalid)||causesErreur.pictureUrl !== undefined" />
                   <div *ngIf="causesErreur.pictureUrl !== undefined" class="invalid-feedback">{{causesErreur.pictureUrl}}</div>
-                  <div *ngIf="causesErreur.pictureUrl === undefined" class="invalid-feedback">Veuillez entrer une url d'image de plus de 7 caractères.</div>
+                  <div *ngIf="causesErreur.pictureUrl === undefined" class="invalid-feedback">L'url doit commencer par http</div>
                 </dd>
               </dl>
             </div>

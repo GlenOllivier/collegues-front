@@ -14,6 +14,8 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { GallerieComponent } from './gallerie/gallerie.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { DetailsCollegueComponent } from './details-collegue/details-collegue.component';
+import { UrlValidatorDirective } from './validators/url-validator.directive';
+import { EmailValidatorDirective } from './validators/email-validator.directive';
 
 
 const routes: Routes = [
@@ -32,7 +34,9 @@ const routes: Routes = [
     AccueilComponent,
     GallerieComponent,
     AproposComponent,
-    DetailsCollegueComponent
+    DetailsCollegueComponent,
+    UrlValidatorDirective,
+    EmailValidatorDirective
   ],
   imports: [
     BrowserModule,

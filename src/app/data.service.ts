@@ -73,4 +73,8 @@ export class DataService {
   recupererPhotos():Observable<any[]> {
     return this._http.get<any[]>(`${this.BACKEND_URL}/collegues/photos`);
   }
+
+  verifierEmail(email:string) : Observable<boolean> {
+    return this._http.get<boolean>(`${this.BACKEND_URL}/collegues/verifier-doublons?email=${email}`);
+  }
 }

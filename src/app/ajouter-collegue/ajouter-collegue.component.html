@@ -33,9 +33,9 @@
             <dt class="col-md-5">Email</dt>
             <dd class="col-md-7">
               <input [(ngModel)]="formData.email" name="email" #email="ngModel" type="text" class="form-control w-100"
-                required [class.is-invalid]="(email.dirty && email.invalid) || causesErreur.email !== undefined" />
+                appEmailValidator [class.is-invalid]="(email.dirty && email.invalid) || causesErreur.email !== undefined" />
                 <div *ngIf="causesErreur.email !== undefined" class="invalid-feedback">{{causesErreur.email}}</div>
-                <div *ngIf="causesErreur.email === undefined" class="invalid-feedback">Veuillez entrer une url d'image de plus de 7 caractères.</div>
+                <div *ngIf="causesErreur.email === undefined" class="invalid-feedback">Cet email est déja utilisé.</div>
             </dd>
             <dt class="col-md-5">URL de la photo</dt>
             <dd class="col-md-7 input-group">
