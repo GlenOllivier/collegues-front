@@ -3,6 +3,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Collegue } from '../models/Collegue';
 import { flatMap } from 'rxjs/operators';
 import { DataService } from '../data.service';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-details-collegue',
@@ -13,7 +14,7 @@ export class DetailsCollegueComponent implements OnInit {
 
   collegue:Collegue;
 
-  constructor(private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(private route: ActivatedRoute, private dataService: DataService, private authService:AuthService) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(

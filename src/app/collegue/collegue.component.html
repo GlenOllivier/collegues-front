@@ -46,7 +46,7 @@
             </div>
             <div class="row">
               <div class="col-md-7 mb-4">
-                <div *ngIf="!modificationEnCours"><button class="btn btn-outline-dark" (click)="creer()"> Créer un
+                <div *ngIf="!modificationEnCours && isAdmin"><button class="btn btn-outline-dark"  routerLink="/accueil/creer"> Créer un
                     nouveau collegue </button></div>
                 <div *ngIf="modificationEnCours"><button class="btn btn-secondary" (click)="annuler()"> Annuler
                   </button></div>
@@ -55,7 +55,7 @@
                 <div *ngIf="modificationEnCours"><button type="submit" class="btn btn-success text-right"
                     [disabled]="form.invalid"> Valider
                   </button></div>
-                <div *ngIf="!modificationEnCours"><button class="btn btn-dark text-right" (click)="modifier()"> Modifier
+                <div *ngIf="!modificationEnCours && isAdmin"><button class="btn btn-dark text-right" (click)="modifier()"> Modifier
                   </button></div>
               </div>
             </div>
@@ -70,6 +70,6 @@
     </div>
   </div>
 </div>
-<div *ngIf="collegue === undefined" class="text-center">
-  <button class="btn btn-outline-dark" href="#" (click)="creer()"> Créer un nouveau collegue </button>
+<div *ngIf="collegue === undefined && isAdmin" class="text-center">
+  <button class="btn btn-outline-dark" routerLink="/accueil/creer" > Créer un nouveau collegue </button>
 </div>

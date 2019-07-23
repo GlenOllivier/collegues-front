@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../data.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-accueil',
@@ -8,18 +9,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./accueil.component.css']
 })
 export class AccueilComponent implements OnInit, OnDestroy {
-  etat:number;
-  subscription:Subscription;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private authService:AuthService) { }
 
   ngOnInit() {
-    this.etat = 0;
-    this.subscription = this.dataService.subEtat().subscribe(etat => this.etat = etat);
 
   }
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
 }

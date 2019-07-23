@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-gallerie',
@@ -9,7 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class GallerieComponent implements OnInit {
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private authService:AuthService) { }
 
   pictures:any[];
   public codeErreur:number = 200;

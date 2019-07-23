@@ -3,6 +3,8 @@ import { Collegue } from '../models/Collegue';
 import { DataService } from '../data.service';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-collegue',
@@ -15,12 +17,13 @@ export class CollegueComponent implements OnInit, OnDestroy {
   public modificationEnCours:boolean;
   public codeErreur:number = 200;
   public causesErreur:any = {};
+  public isAdmin:boolean = false;
 
   public formData:Collegue = new Collegue();
 
   private abonnementCollegue:Subscription;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private authService:AuthService) {
     this.modificationEnCours = false;
   }
 
@@ -31,6 +34,7 @@ export class CollegueComponent implements OnInit, OnDestroy {
       this.formData = {...collegue};
       this.modificationEnCours = false;
     });
+    this.isAdmin =  this.authService.isAdmin();
   }
 
   ngOnDestroy(): void {
@@ -42,7 +46,6 @@ export class CollegueComponent implements OnInit, OnDestroy {
   }
 
   public creer() {
-    this.dataService.postEtat(1);
   }
 
   public valider() {

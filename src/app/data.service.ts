@@ -22,14 +22,14 @@ export class DataService {
 
   rechercheParNom(nom: string): Observable<string[]> {
     this.collegues.clear();
-    return this._http.get<string[]>(this.BACKEND_URL + "/collegues?nom=" + nom);
+    return this._http.get<string[]>(this.BACKEND_URL + "/collegues?nom=" + nom, {withCredentials:true});
   }
 
   rechercheParMatricule(matricule:string): Observable<Collegue> {
     if (this.collegues.has(matricule)) {
       return of(this.collegues.get(matricule));
     }
-    return this._http.get<Collegue>(this.BACKEND_URL + "/collegues/" + matricule)
+    return this._http.get<Collegue>(this.BACKEND_URL + "/collegues/" + matricule, {withCredentials:true})
     .pipe(tap(collegue => this.collegues.set(collegue.matricule, collegue)));
   }
 
@@ -55,7 +55,7 @@ export class DataService {
       collegueDto.email = collegue.email;
     }
     this.collegues.clear();
-    return this._http.patch<Collegue>(`${this.BACKEND_URL}/collegues/${collegue.matricule}`, collegueDto);
+    return this._http.patch<Collegue>(`${this.BACKEND_URL}/collegues/${collegue.matricule}`, collegueDto, {withCredentials:true});
   }
   
   postEtat(etat:number) {
@@ -67,14 +67,14 @@ export class DataService {
   }
 
   ajouterCollegue(collegue:Collegue): Observable<Collegue> {
-    return this._http.post<Collegue>(`${this.BACKEND_URL}/collegues`, collegue);
+    return this._http.post<Collegue>(`${this.BACKEND_URL}/collegues`, collegue, {withCredentials:true});
   }
 
   recupererPhotos():Observable<any[]> {
-    return this._http.get<any[]>(`${this.BACKEND_URL}/collegues/photos`);
+    return this._http.get<any[]>(`${this.BACKEND_URL}/collegues/photos`, {withCredentials:true});
   }
 
   verifierEmail(email:string) : Observable<boolean> {
-    return this._http.get<boolean>(`${this.BACKEND_URL}/collegues/verifier-doublons?email=${email}`);
+    return this._http.get<boolean>(`${this.BACKEND_URL}/collegues/verifier-doublons?email=${email}`, {withCredentials:true});
   }
 }

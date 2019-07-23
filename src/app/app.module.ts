@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -16,13 +16,23 @@ import { AproposComponent } from './apropos/apropos.component';
 import { DetailsCollegueComponent } from './details-collegue/details-collegue.component';
 import { UrlValidatorDirective } from './validators/url-validator.directive';
 import { EmailValidatorDirective } from './validators/email-validator.directive';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { CanActivateUserGuard } from './can-activate-user.guard';
+import { AuthService } from './auth-service';
+import { CanActivateAdminGuard } from './can-activate-admin.guard';
 
 
 const routes: Routes = [
-  { path: 'accueil', component: AccueilComponent },
-  { path: 'gallerie', component:GallerieComponent},
-  { path: 'gallerie/:matricule', component: DetailsCollegueComponent},
-  { path: 'apropos', component: AproposComponent }
+  { path: '',redirectTo: '/accueil/afficher', pathMatch: 'full'},
+  { path: 'accueil', component: AccueilComponent, canActivate:[CanActivateUserGuard], children:[
+    {path: '', redirectTo: 'afficher', pathMatch:'full'},
+    {path: 'creer', component: AjouterCollegueComponent, canActivate:[CanActivateAdminGuard]},
+    {path: 'afficher', component: CollegueComponent} 
+  ] },
+  { path: 'gallerie', component:GallerieComponent, canActivate:[CanActivateUserGuard]},
+  { path: 'gallerie/:matricule', component: DetailsCollegueComponent, canActivate:[CanActivateUserGuard]},
+  { path: 'apropos', component: AproposComponent, canActivate:[CanActivateUserGuard] },
+  { path: 'login', component: ConnexionComponent }
 ];
 
 @NgModule({
@@ -36,7 +46,8 @@ const routes: Routes = [
     AproposComponent,
     DetailsCollegueComponent,
     UrlValidatorDirective,
-    EmailValidatorDirective
+    EmailValidatorDirective,
+    ConnexionComponent
   ],
   imports: [
     BrowserModule,

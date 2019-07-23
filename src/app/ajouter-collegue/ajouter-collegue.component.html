@@ -58,6 +58,7 @@
       </div>
       <div [ngSwitch]="codeErreur" class="w-100 m-2">
         <div *ngSwitchCase="0" class="alert alert-warning w-100">Serveur injoignable</div>
+        <div *ngSwitchCase="403" class="alert alert-danger w-100">Action interdite</div>
         <div *ngSwitchCase="404" class="alert alert-danger w-100">Collegue introuvable</div>
         <div *ngSwitchCase="500" class="alert alert-warning w-100">Erreur interne au serveur</div>
       </div>

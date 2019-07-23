@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Collegue } from '../models/Collegue';
 import { DataService } from '../data.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ajouter-collegue',
@@ -13,7 +14,7 @@ export class AjouterCollegueComponent implements OnInit {
   codeErreur:number = 200;
   causesErreur:any = {};
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -21,11 +22,12 @@ export class AjouterCollegueComponent implements OnInit {
   valider() {
     this.dataService.ajouterCollegue(this.formData)
     .subscribe(collegue => {
-      this.dataService.postEtat(0);
       this.dataService.postCollegue(collegue);
       this.causesErreur = {};
+      this.router.navigate(['afficher']);
     },
     (error:HttpErrorResponse) => {
+      console.log(error.status);
       this.codeErreur = error.status;
       if(this.codeErreur === 400) {
         this.causesErreur = error.error;
@@ -34,6 +36,6 @@ export class AjouterCollegueComponent implements OnInit {
   }
 
   annuler() {
-    this.dataService.postEtat(0);
+    this.router.navigate(['accueil/afficher']);
   }
 }
