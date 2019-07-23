@@ -8,9 +8,11 @@ import { AuthService } from '../auth-service';
 })
 export class ConnexionComponent implements OnInit {
   formData:any = {username:"", password:""};
+  loginError:string;
   constructor(private authService:AuthService) { }
 
   ngOnInit() {
+    this.authService.loginErrorSub().subscribe(error => this.loginError = error);
   }
 
   connect() {

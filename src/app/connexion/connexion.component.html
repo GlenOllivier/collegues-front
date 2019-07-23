@@ -13,6 +13,7 @@
         <input type="submit" class="btn btn-primary">
       </div>
     </form>
+    <div *ngIf="loginError !== undefined" class="alert alert-danger w-100">{{loginError}}</div>
 
   </div>
 </div>

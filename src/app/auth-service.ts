@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {environment} from '../environments/environment';
 import { User } from './models/User';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
@@ -13,14 +13,28 @@ export class AuthService implements OnInit {
   private BASE_URL = environment.backendUrl;
 
   private currenUser: BehaviorSubject<User> = new BehaviorSubject(null);
+  private loginError: Subject<string> = new Subject();
   constructor(private _http:HttpClient, private router: Router) { }
 
   ngOnInit():void {
   }
 
   login(username, password) {
+    this.loginError.next(undefined);
     this._http.post<void>(`${this.BASE_URL}/auth`, {"username" : username, "password" : password}, {withCredentials:true})
-    .subscribe(() => this.router.navigate(['accueil/afficher']), error => this.router.navigate(['login']))
+    .subscribe(() => this.router.navigate(['accueil/afficher']), (error:HttpErrorResponse) => {
+      switch(error.status) {
+        case 401 :
+          this.loginError.next("Identifiants incorrects");
+          break;
+        case 500 :
+            this.loginError.next("Erreur interne au serveur");
+            break;
+        case 0 :
+            this.loginError.next("Serveur injoignable");
+            break;
+      }
+    })
   }
 
   logout() {
@@ -38,5 +52,9 @@ export class AuthService implements OnInit {
 
   userSub() : Observable<User>{
     return this.currenUser.asObservable();
+  }
+
+  loginErrorSub():Observable<string> {
+    return this.loginError.asObservable();
   }
 }
