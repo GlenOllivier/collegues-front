@@ -34,7 +34,7 @@ export class CollegueComponent implements OnInit, OnDestroy {
       this.formData = {...collegue};
       this.modificationEnCours = false;
     });
-    this.isAdmin =  this.authService.isAdmin();
+    this.authService.userSub().subscribe(user => this.isAdmin = user !== null && user.roles.includes("ROLE_ADMIN"));
   }
 
   ngOnDestroy(): void {

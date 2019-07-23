@@ -1,27 +1,37 @@
-
-
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
   <div class="navbar-brand">Logo</div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link " routerLink="/accueil" routerLinkActive="active" >Accueil</a>
+        <a class="nav-link " routerLink="/accueil" routerLinkActive="active">Accueil</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/gallerie" routerLinkActive="active" >Gallerie</a>
+        <a class="nav-link" routerLink="/gallerie" routerLinkActive="active">Gallerie</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/apropos" routerLinkActive="active" >A propos</a>
+        <a class="nav-link" routerLink="/apropos" routerLinkActive="active">A propos</a>
       </li>
     </ul>
+    <div *ngIf="user !== null">
+      <form class="form-inline">
+        <label class="mr-3">{{user.username}}</label>
+        <button class="btn btn-outline-dark form-control" (click)="logout()" >Déconnexion</button>
+      </form>
+    </div>
+    <div *ngIf="user === null">
+      <form class="form-inline">
+        <button class="btn btn-dark form-control" routerLink="/login">Connexion</button>
+      </form>
+    </div>
   </div>
 </nav>
 
 <router-outlet></router-outlet>
 
 <footer style="bottom: 0">
-  <p class="text-center text-sm" >2019 - Glen OLLIVIER</p>
+  <p class="text-center text-sm">2019 - Glen OLLIVIER</p>
 </footer>
